@@ -1,0 +1,37 @@
+version: "3.9"
+
+services:
+
+  postgres011:
+    image: postgres:11.17-alpine3.16
+    restart: always
+    ports:
+      - "5433:5432"
+    environment:
+      - DATABASE_HOST=127.0.0.1
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=darwinBD
+
+  
+  pgadmin-DOCKER:
+    image: dpage/pgadmin4
+    environment:
+      PGADMIN_DEFAULT_EMAIL: "darwin.uzcategui1973@gmail.com"
+      PGADMIN_DEFAULT_PASSWORD: "Gmd123456**"
+    ports:
+      - "8088:80"
+    depends_on:
+      - postgres011
+
+  qweb5-DOCKER:
+    image: 11642590/tomcat8-java8-qweb:5.0.0
+    environment:
+      DARWINQWEBUSO: "MYSQL"
+      QWEBBASEDATOS: "BASEDATOS"
+    ports:
+      - "3089:8080"
+    depends_on:
+      - postgres011
+
+  
